@@ -1,24 +1,33 @@
 package tests;
 
+import data.UserClient;
 import io.qameta.allure.Description;
+import io.restassured.response.Response;
 import model.User;
-import org.junit.jupiter.api.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import static com.codeborne.selenide.Condition.visible;
 import static data.UserDataGenerator.getGeneratedUser;
 
 
 public class LoginTest extends BaseTest {
 
+    static UserClient userClient = new UserClient();
     static User user;
+    private static String accessToken;
+    static String login;
+    static String password;
 
-    @BeforeAll
+    @BeforeClass
     @Description("User registration")
-    static void registrationUser() {
+    public static void registrationUser() throws InterruptedException {
         user = getGeneratedUser(6, 20);
-        app.registrationPage.open();
-        app.registrationPage.fillRegistrationForm(user);
-        app.loginPage.getH2Enter().shouldBe(visible);
-
+        login = user.email;
+        password = user.password;
+        Response response = userClient.createUser(user);
+        accessToken = response.path("accessToken");
     }
 
     @Test
@@ -57,11 +66,17 @@ public class LoginTest extends BaseTest {
         app.mainPage.getMakeOrderButton().shouldBe(visible);
     }
 
-    @AfterEach
+    @After
     @Description ("Logout")
     public void userLogOut(){
         app.headerPage.clickPersonalArea();
         app.profilePage.clickLogOutLink();
+    }
+
+    @AfterClass
+    @Description ("Remove user")
+    public static void userRemoval(){
+        if (accessToken != null) userClient.deleteUser(accessToken);
     }
 
 }

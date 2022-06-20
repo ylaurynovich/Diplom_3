@@ -1,27 +1,37 @@
 package tests;
 
+import data.UserClient;
 import io.qameta.allure.Description;
+import io.restassured.response.Response;
 import model.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Test;
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
 import static data.UserDataGenerator.getGeneratedUser;
 
 public class LogoutTest extends BaseTest{
 
+    static UserClient userClient = new UserClient();
     static User user;
+    private static String accessToken;
+    static String login;
+    static String password;
 
-    @BeforeEach
+
+    @Before
     @Description("User registration and login")
     public void registrationUserAndLogin() {
         user = getGeneratedUser(6, 20);
-        app.registrationPage.open();
-        app.registrationPage.fillRegistrationForm(user);
-        app.loginPage.getH2Enter().shouldBe(visible);
+        login = user.email;
+        password = user.password;
+        Response response = userClient.createUser(user);
+        accessToken = response.path("accessToken");
+        app.mainPage.open();
+        app.mainPage.clickLoginButton();
         app.loginPage.fillLoginForm(user);
         app.mainPage.getMakeOrderButton().shouldBe(visible);
-
     }
 
     @Test
@@ -32,5 +42,10 @@ public class LogoutTest extends BaseTest{
         app.loginPage.getButtonEnter().shouldBe(exist);
     }
 
+    @AfterClass
+    @Description ("Remove user")
+    public static void userRemoval(){
+        if (accessToken != null) userClient.deleteUser(accessToken);
+    }
 
 }

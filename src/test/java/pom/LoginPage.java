@@ -11,6 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
 
+    public static final String URL = "https://stellarburgers.nomoreparties.site/login";
     private final SelenideElement h2Enter = $(byXpath("//h2[text()='Вход']"));
     private final SelenideElement emailInput = $(byXpath("//label[text()='Email']/following-sibling::input"));
     private final SelenideElement passwordInput = $(byXpath("//label[text()='Пароль']/following-sibling::input"));
@@ -18,7 +19,7 @@ public class LoginPage {
 
     @Step("Open login page")
     public void open(){
-        Selenide.open("https://stellarburgers.nomoreparties.site/login");
+        Selenide.open(URL);
     }
 
     @Step("Fill login form")

@@ -10,11 +10,12 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class ForgotPasswordPage {
 
+    public static final String URL = "https://stellarburgers.nomoreparties.site/forgot-password";
     private final SelenideElement loginButton = $(byXpath("//a[text()='Войти']"));
 
     @Step("Open forgot password page")
     public void open(){
-        Selenide.open("https://stellarburgers.nomoreparties.site/forgot-password");
+        Selenide.open(URL);
     }
 
     @Step("Click login button")
