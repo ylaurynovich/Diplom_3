@@ -15,12 +15,12 @@ public class App {
     public ConstructorPage constructorPage;
 
     public App() {
-        this.mainPage = page(new MainPage());
-        this.headerPage = page(new HeaderPage());
-        this.registrationPage = page(new RegistrationPage());
-        this.loginPage = page(new LoginPage());
-        this.profilePage = page(new ProfilePage());
-        this.forgotPasswordPage = page(new ForgotPasswordPage());
-        this.constructorPage = page(new ConstructorPage());
+        mainPage = page(new MainPage());
+        headerPage = page(new HeaderPage());
+        registrationPage = page(new RegistrationPage());
+        loginPage = page(new LoginPage());
+        profilePage = page(new ProfilePage());
+        forgotPasswordPage = page(new ForgotPasswordPage());
+        constructorPage = page(new ConstructorPage());
     }
 }

@@ -1,15 +1,15 @@
 package tests;
 
 import io.qameta.allure.Description;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import static com.codeborne.selenide.Condition.text;
 
 
 public class ConstructorTest extends BaseTest {
 
-    @BeforeEach
+    @Before
     public void openMainPage(){
         app.mainPage.open();
     }
@@ -40,7 +40,7 @@ public class ConstructorTest extends BaseTest {
         app.constructorPage.getModalCardText().shouldHave(text("Флюоресцентная булка R2-D3"));
     }
 
-    @AfterEach
+    @After
     public void closeModal(){
         app.constructorPage.closeModal();
     }

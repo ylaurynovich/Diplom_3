@@ -1,16 +1,24 @@
 package tests;
 
+import data.UserDeleter;
 import io.qameta.allure.Description;
 import model.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runners.Parameterized;
+
 import static com.codeborne.selenide.Condition.visible;
 import static data.UserDataGenerator.getGeneratedUser;
 
 
 public class RegistrationTest extends BaseTest {
 
-    @BeforeEach
+    private UserDeleter userDeleter = new UserDeleter();
+    private String email;
+    private String password;
+
+    @Before
     public void openRegistrationPage(){
         app.registrationPage.open();
     }
@@ -19,6 +27,8 @@ public class RegistrationTest extends BaseTest {
     @Description("Login")
     public void loginTest() {
         User user = getGeneratedUser(6, 20);
+        email = user.email;
+        password = user.password;
         app.registrationPage.fillRegistrationForm(user);
         app.loginPage.getH2Enter().shouldBe(visible);
     }
@@ -27,8 +37,14 @@ public class RegistrationTest extends BaseTest {
     @Description ("Login invalid password")
     public void loginWithInvalidPasswordTest() {
         User user = getGeneratedUser(1, 5);
+        email = user.email;
+        password = user.password;
         app.registrationPage.fillRegistrationForm(user);
         app.registrationPage.getInvalidPasswordMessage().shouldBe(visible);
     }
 
+    @Parameterized.AfterParam
+    public void afterClass() {
+        userDeleter.deleteUser(email, password);
+    }
 }

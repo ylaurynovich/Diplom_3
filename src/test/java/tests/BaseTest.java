@@ -4,21 +4,21 @@ package tests;
 import config.App;
 import config.Driver;
 import io.qameta.allure.Description;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 
 public class BaseTest {
     static App app = new App();
 
-    @BeforeAll
+    @BeforeClass
     @Description("Initialization driver")
     public static void setUp(){
         Driver.initDriver();
     }
 
-    @AfterAll
+    @AfterClass
     @Description("Close browser")
     public static void TearDown(){
         closeWebDriver();

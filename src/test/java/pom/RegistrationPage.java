@@ -11,6 +11,7 @@ import io.qameta.allure.Step;
 
 public class RegistrationPage {
 
+    public final static String URL = "https://stellarburgers.nomoreparties.site/register";
     private final SelenideElement nameInput = $(byXpath("//label[text()='Имя']/following-sibling::input"));
     private final SelenideElement emailInput = $(byXpath("//label[text()='Email']/following-sibling::input"));
     private final SelenideElement passwordInput = $(byXpath("//label[text()='Пароль']/following-sibling::input"));
@@ -20,7 +21,7 @@ public class RegistrationPage {
 
     @Step("Click login link")
     public void open(){
-        Selenide.open("https://stellarburgers.nomoreparties.site/register");
+        Selenide.open(URL);
         loginButton.shouldBe(exist);
     }
 
