@@ -1,6 +1,6 @@
 package tests;
 
-import data.UserDeleter;
+import data.UserClient;
 import io.qameta.allure.Description;
 import model.User;
 import org.junit.AfterClass;
@@ -10,13 +10,15 @@ import org.junit.runners.Parameterized;
 
 import static com.codeborne.selenide.Condition.visible;
 import static data.UserDataGenerator.getGeneratedUser;
+import static tests.LoginTest.userClient;
 
 
 public class RegistrationTest extends BaseTest {
 
-    private UserDeleter userDeleter = new UserDeleter();
     private String email;
     private String password;
+    private static String accessToken;
+
 
     @Before
     public void openRegistrationPage(){
@@ -41,10 +43,12 @@ public class RegistrationTest extends BaseTest {
         password = user.getPassword();
         app.registrationPage.fillRegistrationForm(user);
         app.registrationPage.getInvalidPasswordMessage().shouldBe(visible);
+
     }
 
     @Parameterized.AfterParam
     public void afterClass() {
-        userDeleter.deleteUser(email, password);
+        accessToken = userClient.extractToken(email, password);
+        if (accessToken != null) userClient.deleteUser(accessToken);
     }
 }
