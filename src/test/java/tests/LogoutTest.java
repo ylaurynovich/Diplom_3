@@ -24,8 +24,8 @@ public class LogoutTest extends BaseTest{
     @Description("User registration and login")
     public void registrationUserAndLogin() {
         user = getGeneratedUser(6, 20);
-        login = user.email;
-        password = user.password;
+        login = user.getEmail();
+        password = user.getPassword();
         Response response = userClient.createUser(user);
         accessToken = response.path("accessToken");
         app.mainPage.open();

@@ -24,8 +24,8 @@ public class LoginPage {
 
     @Step("Fill login form")
     public void fillLoginForm(User user){
-        emailInput.shouldBe(exist).setValue(user.email);
-        passwordInput.shouldBe(exist).setValue(user.password);
+        emailInput.shouldBe(exist).setValue(user.getEmail());
+        passwordInput.shouldBe(exist).setValue(user.getPassword());
         buttonEnter.shouldBe(exist).click();
 
     }

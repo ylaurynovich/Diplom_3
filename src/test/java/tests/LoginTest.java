@@ -24,8 +24,8 @@ public class LoginTest extends BaseTest {
     @Description("User registration")
     public static void registrationUser() throws InterruptedException {
         user = getGeneratedUser(6, 20);
-        login = user.email;
-        password = user.password;
+        login = user.getEmail();
+        password = user.getPassword();
         Response response = userClient.createUser(user);
         accessToken = response.path("accessToken");
     }

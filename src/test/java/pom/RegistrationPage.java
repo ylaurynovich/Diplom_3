@@ -27,9 +27,9 @@ public class RegistrationPage {
 
     @Step("Fill registration form")
     public void fillRegistrationForm(User user){
-        nameInput.shouldBe(exist).setValue(user.name);
-        emailInput.shouldBe(exist).setValue(user.email);
-        passwordInput.shouldBe(exist).setValue(user.password);
+        nameInput.shouldBe(exist).setValue(user.getName());
+        emailInput.shouldBe(exist).setValue(user.getEmail());
+        passwordInput.shouldBe(exist).setValue(user.getPassword());
         buttonRegistration.shouldBe(exist).click();
     }
 

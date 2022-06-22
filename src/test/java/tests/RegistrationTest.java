@@ -27,8 +27,8 @@ public class RegistrationTest extends BaseTest {
     @Description("Login")
     public void loginTest() {
         User user = getGeneratedUser(6, 20);
-        email = user.email;
-        password = user.password;
+        email = user.getEmail();
+        password = user.getPassword();
         app.registrationPage.fillRegistrationForm(user);
         app.loginPage.getH2Enter().shouldBe(visible);
     }
@@ -37,8 +37,8 @@ public class RegistrationTest extends BaseTest {
     @Description ("Login invalid password")
     public void loginWithInvalidPasswordTest() {
         User user = getGeneratedUser(1, 5);
-        email = user.email;
-        password = user.password;
+        email = user.getEmail();
+        password = user.getPassword();
         app.registrationPage.fillRegistrationForm(user);
         app.registrationPage.getInvalidPasswordMessage().shouldBe(visible);
     }
